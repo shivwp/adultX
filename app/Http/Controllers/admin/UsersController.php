@@ -57,6 +57,8 @@ class UsersController extends Controller
         $users =User::paginate($pagination)->withQueryString();
         return view('admin.users.index2', compact('users','title','buton_name'));
     }
+
+    
     public function create()
     {
         abort_if(Gate::denies('user_create'), Response::HTTP_FORBIDDEN, '403 Forbidden');

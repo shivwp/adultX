@@ -66,13 +66,17 @@
                                                                 @can('page_edit')
                                                                  <a class="btn btn-sm btn-secondary" href="{{ route('dashboard.pages.edit', $item->id) }}"><i class="fa fa-edit"></i> </a>
                                                                 @endcan 
+                                                                @if($item->slug == 'home')
+                                                                
+                                                                @else 
                                                                 @can('page_delete')
-                                                                    <form action="{{ route('dashboard.pages.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure');" style="display: inline-block;">
-                                                                        <input type="hidden" name="_method" value="DELETE">
-                                                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                                                        <button type="submit" class="btn btn-sm btn-danger" value=""><i class="fa fa-trash"></i></button>
-                                                                    </form>
+                                                                <form action="{{ route('dashboard.pages.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Are you sure');" style="display: inline-block;">
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                                                    <button type="submit" class="btn btn-sm btn-danger" value=""><i class="fa fa-trash"></i></button>
+                                                                </form>
                                                                 @endcan 
+                                                                @endif
                                                             </td>
                                                         </tr>
                                                     @endforeach

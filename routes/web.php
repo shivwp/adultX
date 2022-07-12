@@ -1,527 +1,479 @@
 <?php
 
 
-
 use Illuminate\Support\Facades\Route;
-
 use Maatwebsite\Excel\Facades\Excel;
-
 use App\Imports\ImportProduct;
-
 use App\Http\Controllers\UserController;
-
 use App\Http\Controllers\admin\UsersController;
-
+use App\Http\Controllers\admin\FanController;
 use App\Http\Controllers\admin\RolesController;
-
 use App\Http\Controllers\admin\PermissionsController;
-
 use App\Http\Controllers\admin\ProductController;
-
 use App\Http\Controllers\admin\OrderController;
-
 use App\Http\Controllers\admin\PagesController;
-
 use App\Http\Controllers\admin\MailController;
-
 use App\Http\Controllers\admin\CategoryController;
-
 use App\Http\Controllers\admin\AttributeController;
-
 use App\Http\Controllers\admin\AttributeValueController;
-
 use App\Http\Controllers\admin\GiftCardController;
-
 use App\Http\Controllers\admin\CouponController;
-
 use App\Http\Controllers\admin\HomepageController;
-
 use App\Http\Controllers\admin\TaxController;
-
 use App\Http\Controllers\admin\CurrencyController;
-
 use App\Http\Controllers\admin\ReviewController;
-
 use App\Http\Controllers\admin\SettingsController;
-
 use App\Http\Controllers\admin\MenuController;
-
 use App\Http\Controllers\admin\ModelsController;
-
 use App\Http\Controllers\admin\ModelOrientationController;
-
 use App\Http\Controllers\admin\ModelCategoryController;
-
 use App\Http\Controllers\admin\ModelEthnicityController;
-
 use App\Http\Controllers\admin\ModelLanguageController;
-
 use App\Http\Controllers\admin\ModelHairController;
-
 use App\Http\Controllers\admin\ModelFetishesController;
-
 use App\Http\Controllers\admin\BrandController;
-
 use App\Http\Controllers\admin\VendorSettingController;
-
 use App\Http\Controllers\admin\GeneralSettingController;
-
 use App\Http\Controllers\admin\SupportCategoryController;
-
 use App\Http\Controllers\admin\WithdrowController;
-
 use App\Http\Controllers\admin\DashboardController;
-
 use App\Http\Controllers\admin\TestimonialsController;
-
 use App\Http\Controllers\admin\BidController;
-
 use App\Http\Controllers\admin\BlogCategoryController;
-
 use App\Http\Controllers\admin\BlogController;
-
 use App\Http\Controllers\admin\FaqController;
 use App\Http\Controllers\admin\BlogTagsController;
 use App\Http\Controllers\admin\NotificationsController;
-use App\Http\Controllers\Controller;
-
+use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\SupportTicketsController;
 
 
+Route::get('/',[App\Http\Controllers\frontend\FrontendController::class, 'index'])->name('main');
 
 
+//login
 
-Route::redirect('/', '/login');
+Route::get('user-login',[App\Http\Controllers\HomeController::class, 'logs'])->name('user/login');
+Route::get('sign-up',[App\Http\Controllers\HomeController::class, 'registeruser'])->name('sign-up');
+Route::post('storeuser',[App\Http\Controllers\HomeController::class, 'storeuser'])->name('storeuser');
+Route::get('my-account',[App\Http\Controllers\HomeController::class, 'userlogin'])->name('my-account');
+Route::post('mainlogin',[App\Http\Controllers\HomeController::class, 'postlogin'])->name('mainlogin');
 
+Auth::routes(['register' => true]);
 
 
-Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['auth']], function (){
+Route::redirect('/home', '/');
+Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['auth']], function () {
 
-     Route::get('/', 'HomeController@index')->name('home');
+  Route::get('/', 'HomeController@index')->name('home');
 
+  Route::get('/', function () {
+    return view('index');
+  });
 
+  //Users
 
-    Route::get('/', function () {
+  Route::resource('users', UsersController::class);
+  Route::resource('fans', FanController::class);
 
-        return view('index');
+  //Roles
+  Route::resource('roles', RolesController::class);
 
+  //Permission
+  Route::resource('permissions', PermissionsController::class);
 
+  Route::get('country', [VendorSettingController::class, 'countrylist'])->name('country');
 
-    });
+  Route::post('fetch-states', [VendorSettingController::class, 'fetchState']);
 
-    //Users
+  Route::post('fetch-cities', [VendorSettingController::class, 'fetchCity']);
 
-    Route::resource('users', UsersController::class);
+  Route::get('vendor-add', [VendorSettingController::class, 'vendoradd']);
 
-    //Roles
+  Route::post('vendor-added', [VendorSettingController::class, 'vendoradded']);
 
-    Route::resource('roles', RolesController::class);
+  //Product
 
-    //Permission
+  Route::resource('product', ProductController::class);
 
-    Route::resource('permissions', PermissionsController::class);
+  Route::post('get-attr-value', [ProductController::class, 'getAtrValue'])->name('get-attr-value');
 
-    Route::get('country', [VendorSettingController::class, 'countrylist'])->name('country'); 
+  Route::post('get-attr-value-single', [ProductController::class, 'getAtrValueSingleSelect'])->name('get-attr-value-single');
 
-    Route::post('fetch-states', [VendorSettingController::class, 'fetchState']);
 
-    Route::post('fetch-cities', [VendorSettingController::class, 'fetchCity']);
 
-    Route::get('vendor-add', [VendorSettingController::class, 'vendoradd']);
+  //create variants
 
-    Route::post('vendor-added', [VendorSettingController::class, 'vendoradded']);
+  Route::post('create-varient', [ProductController::class, 'createVarient'])->name('create-varient');
 
-    //Product
+  Route::post('product-search', [CouponController::class, 'productSearch'])->name('product-search');
 
-    Route::resource('product', ProductController::class);
+  Route::post('user-search', [CouponController::class, 'usersSearch'])->name('user-search');
 
-    Route::post('get-attr-value', [ProductController::class,'getAtrValue'])->name('get-attr-value');
 
-    Route::post('get-attr-value-single', [ProductController::class,'getAtrValueSingleSelect'])->name('get-attr-value-single');
 
+  //Order
 
+  Route::resource('order', OrderController::class);
 
-    //create variants
 
-    Route::post('create-varient', [ProductController::class,'createVarient'])->name('create-varient');
 
-    Route::post('product-search', [CouponController::class,'productSearch'])->name('product-search');
+  //Pages
 
-    Route::post('user-search', [CouponController::class,'usersSearch'])->name('user-search');
+  Route::resource('pages', PagesController::class);
 
+  //Mail
 
+  Route::resource('mail', MailController::class);
 
-    //Order
+  //Models
 
-    Route::resource('order', OrderController::class);
+  Route::resource('models', ModelsController::class);
 
+  //Model-Orientation
 
+  Route::resource('model-orientation', ModelOrientationController::class);
 
-    //Pages
+  //Model-Category
 
-    Route::resource('pages', PagesController::class);
+  Route::resource('model-category', ModelCategoryController::class);
 
-    //Mail
+  //Model-Ethnicity
 
-    Route::resource('mail', MailController::class);
+  Route::resource('model-ethnicity', ModelEthnicityController::class);
 
-    //Models
+  //Model-Language
 
-    Route::resource('models', ModelsController::class);
+  Route::resource('model-language', ModelLanguageController::class);
 
-    //Model-Orientation
+  //Model-Hair
 
-    Route::resource('model-orientation', ModelOrientationController::class);
+  Route::resource('model-hair', ModelHairController::class);
 
-    //Model-Category
+  //Model-fetishes
 
-    Route::resource('model-category', ModelCategoryController::class);
+  Route::resource('model-fetishes', ModelFetishesController::class);
 
-    //Model-Ethnicity
+  //Dashboard
 
-    Route::resource('model-ethnicity', ModelEthnicityController::class);
+  Route::resource('dashboard', DashboardController::class);
 
-    //Model-Language
 
-    Route::resource('model-language', ModelLanguageController::class);
 
-    //Model-Hair
+  //FAQ
 
-    Route::resource('model-hair', ModelHairController::class);
+  Route::resource('faq', FaqController::class);
 
-    //Model-fetishes
 
-    Route::resource('model-fetishes', ModelFetishesController::class);
 
-    //Dashboard
+  //testimonials
 
-    Route::resource('dashboard', DashboardController::class);
+  Route::resource('testimonials', TestimonialsController::class);
 
 
 
-    //FAQ
 
-     Route::resource('faq', FaqController::class);
 
+  //support category
 
+  Route::resource('support-category', SupportCategoryController::class);
 
-    //testimonials
 
-      Route::resource('testimonials', TestimonialsController::class);
 
- 
+  //support
 
+  Route::resource('support-tickets', SupportTicketsController::class)->name('*', 'support-tickets');
 
 
-      //support category
 
-      Route::resource('support-category', SupportCategoryController::class);
+  //support comment
 
+  Route::post('support-comments', [App\Http\Controllers\admin\SupportTicketsController::class, 'sendComment'])->name('support-comments');
 
 
-      //support
 
-      Route::resource('support-tickets', SupportTicketsController::class)->name('*','support-tickets');
 
 
+  //ticket close
 
-      //support comment
+  Route::post('close-ticket', [App\Http\Controllers\admin\SupportTicketsController::class, 'closeTicket'])->name('close-ticket');
 
-    Route::post('support-comments',[App\Http\Controllers\admin\SupportTicketsController::class, 'sendComment'])->name('support-comments');
 
 
+  //Add new city
 
+  Route::get('city-add', [App\Http\Controllers\admin\MenuController::class, 'cityadd'])->name('city-add');
 
+  Route::post('store-city', [App\Http\Controllers\admin\MenuController::class, 'citystore'])->name('store-city');
 
-    //ticket close
 
-    Route::post('close-ticket',[App\Http\Controllers\admin\SupportTicketsController::class, 'closeTicket'])->name('close-ticket');
 
+  //Category
 
+  Route::resource('category', CategoryController::class);
 
-    //Add new city
+  Route::post('category-pagination', [App\Http\Controllers\admin\CategoryController::class, 'pagination'])->name('category-pagination');
 
-     Route::get('city-add',[App\Http\Controllers\admin\MenuController::class, 'cityadd'])->name('city-add');
+  //Attribute
 
-     Route::post('store-city',[App\Http\Controllers\admin\MenuController::class, 'citystore'])->name('store-city');
+  Route::resource('attribute', AttributeController::class);
 
 
 
-    //Category
+  Route::get('add-value/{id}', [App\Http\Controllers\admin\AttributeController::class, 'addvalue']);
 
-    Route::resource('category', CategoryController::class);
 
-    Route::post('category-pagination',[App\Http\Controllers\admin\CategoryController::class, 'pagination'])->name('category-pagination');
 
-    //Attribute
+  Route::POST('save-value/{id}', [App\Http\Controllers\admin\AttributeController::class, 'saveatrvalue']);
 
-    Route::resource('attribute', AttributeController::class);
 
 
+  //Attribute value
 
-    Route::get('add-value/{id}',[App\Http\Controllers\admin\AttributeController::class, 'addvalue']);
 
 
+  Route::resource('attribute-value', AttributeValueController::class);
 
-    Route::POST('save-value/{id}',[App\Http\Controllers\admin\AttributeController::class, 'saveatrvalue']);
+  Route::get('attr-value/{id}', [App\Http\Controllers\admin\AttributeValueController::class, 'attrValdata'])->name('attr-value');
 
+  //Gift Card
 
 
-    //Attribute value
 
+  Route::resource('gift-card', GiftCardController::class);
 
+  Route::get('card-deatils', [App\Http\Controllers\admin\GiftCardController::class, 'index2'])->name('card-deatils');
 
-    Route::resource('attribute-value', AttributeValueController::class);
+  Route::get('gift-card-transaction', [App\Http\Controllers\admin\GiftCardController::class, 'giftcardTransaction'])->name('gift-card-transaction');
 
-    Route::get('attr-value/{id}',[App\Http\Controllers\admin\AttributeValueController::class, 'attrValdata'])->name('attr-value');
 
-    //Gift Card
 
+  Route::get('transaction-show/{id}', [App\Http\Controllers\admin\GiftCardController::class, 'transactionShow'])->name('transaction-show');
 
 
-    Route::resource('gift-card', GiftCardController::class);
 
-    Route::get('card-deatils',[App\Http\Controllers\admin\GiftCardController::class, 'index2'])->name('card-deatils');
+  Route::get('dummy-page-design', [App\Http\Controllers\admin\PagesController::class, 'dummydesign']);
 
-    Route::get('gift-card-transaction',[App\Http\Controllers\admin\GiftCardController::class, 'giftcardTransaction'])->name('gift-card-transaction');
 
 
+  // Coupon
 
-    Route::get('transaction-show/{id}',[App\Http\Controllers\admin\GiftCardController::class, 'transactionShow'])->name('transaction-show');
+  Route::resource('coupon', CouponController::class);
 
+  //Brand
 
+  Route::resource('brand', BrandController::class);
 
-Route::get('dummy-page-design',[App\Http\Controllers\admin\PagesController::class,'dummydesign']);
+  //Tax
 
+  Route::resource('tax', TaxController::class);
 
+  //generalsetting
 
-    // Coupon
+  Route::resource('general-setting', GeneralSettingController::class)->name('*', 'general-setting');
 
-    Route::resource('coupon', CouponController::class);
 
-    //Brand
 
-    Route::resource('brand', BrandController::class);
+  // Home Page
 
-    //Tax
+  Route::resource('homepage', HomepageController::class);
 
-    Route::resource('tax', TaxController::class);
+  //currency 
 
-     //generalsetting
+  Route::resource('currency', CurrencyController::class);
 
-    Route::resource('general-setting', GeneralSettingController::class)->name('*', 'general-setting');
 
 
+  // settings
 
-    // Home Page
 
-    Route::resource('homepage', HomepageController::class);
 
-    //currency 
+  Route::resource('settings', SettingsController::class);
 
-    Route::resource('currency', CurrencyController::class);
 
 
+  Route::post('language', [App\Http\Controllers\SettingsController::class, 'language'])->name('language');
 
-    // settings
 
 
+  // Route::post('currency',[App\Http\Controllers\SettingsController::class, 'currency'])->name('currency');
 
-    Route::resource('settings', SettingsController::class);
 
 
+  //Vendor settings
 
-    Route::post('language',[App\Http\Controllers\SettingsController::class, 'language'])->name('language');
+  Route::resource('vendorsettings', VendorSettingController::class);
 
 
 
-    // Route::post('currency',[App\Http\Controllers\SettingsController::class, 'currency'])->name('currency');
+  Route::get('vendorsetting', [App\Http\Controllers\admin\VendorSettingController::class, 'index2'])->name('vendor-setting');
 
 
 
-    //Vendor settings
+  Route::post('vendor-setting-update', [App\Http\Controllers\admin\VendorSettingController::class, 'storedata'])->name('vendor-setting-update');
 
-    Route::resource('vendorsettings', VendorSettingController::class);
 
 
+  Route::get('vendorsetting-admin', [App\Http\Controllers\admin\VendorSettingController::class, 'index3'])->name('vendor-setting-admin');
 
-    Route::get('vendorsetting',[App\Http\Controllers\admin\VendorSettingController::class, 'index2'])->name('vendor-setting');
+  //Approve & Reject Vendor
 
 
 
-     Route::post('vendor-setting-update',[App\Http\Controllers\admin\VendorSettingController::class, 'storedata'])->name('vendor-setting-update');
+  Route::get('vendor-approve/{id}', [App\Http\Controllers\admin\VendorSettingController::class, 'approveVendor'])->name('vendor-approve');
 
 
 
-     Route::get('vendorsetting-admin',[App\Http\Controllers\admin\VendorSettingController::class, 'index3'])->name('vendor-setting-admin');
+  Route::get('vendor-rejected/{id}', [App\Http\Controllers\admin\VendorSettingController::class, 'rejectVendor'])->name('vendor-rejected');
 
-    //Approve & Reject Vendor
 
 
+  //approve product
 
-     Route::get('vendor-approve/{id}',[App\Http\Controllers\admin\VendorSettingController::class, 'approveVendor'])->name('vendor-approve');
+  Route::get('approve-product/{id}', [App\Http\Controllers\admin\ProductController::class, 'productapprove'])->name('approve-product');
 
+  Route::post('reject-product/{id}', [App\Http\Controllers\admin\ProductController::class, 'rejectapprove'])->name('reject-product');
 
 
-     Route::get('vendor-rejected/{id}',[App\Http\Controllers\admin\VendorSettingController::class, 'rejectVendor'])->name('vendor-rejected');
 
+  //Withdrow Request
 
+  Route::resource('withdrow', WithdrowController::class);
 
-     //approve product
 
-     Route::get('approve-product/{id}',[App\Http\Controllers\admin\ProductController::class, 'productapprove'])->name('approve-product');
 
-     Route::post('reject-product/{id}',[App\Http\Controllers\admin\ProductController::class, 'rejectapprove'])->name('reject-product');
+  Route::get('approve-request', [App\Http\Controllers\admin\WithdrowController::class, 'approve'])->name('approve-request');
 
 
 
-    //Withdrow Request
+  Route::get('reject-request', [App\Http\Controllers\admin\WithdrowController::class, 'reject'])->name('reject-request');
 
-    Route::resource('withdrow', WithdrowController::class);
 
 
+  Route::get('vendor-earning-list', [App\Http\Controllers\admin\WithdrowController::class, 'vendorEarninglist'])->name('vendor-earning-list');
 
-    Route::get('approve-request',[App\Http\Controllers\admin\WithdrowController::class, 'approve'])->name('approve-request');
 
 
+  Route::post('req-withdrow', [App\Http\Controllers\admin\WithdrowController::class, 'withdrowreq'])->name('req-withdrow');
 
-    Route::get('reject-request',[App\Http\Controllers\admin\WithdrowController::class, 'reject'])->name('reject-request');
 
 
 
-    Route::get('vendor-earning-list',[App\Http\Controllers\admin\WithdrowController::class, 'vendorEarninglist'])->name('vendor-earning-list');
 
+  //test route
 
 
-    Route::post('req-withdrow',[App\Http\Controllers\admin\WithdrowController::class, 'withdrowreq'])->name('req-withdrow');
 
+  Route::get('chron-fn', [App\Http\Controllers\Controller::class, 'chronfn'])->name('chron-fn');
 
 
 
+  //blogs category
 
-    //test route
+  Route::resource('blog-category', BlogCategoryController::class);
 
 
 
-    Route::get('chron-fn',[App\Http\Controllers\Controller::class, 'chronfn'])->name('chron-fn');
+  //blogs
 
+  Route::resource('blogs', BlogController::class);
 
 
-     //blogs category
+  //blog tags
+  Route::resource('blog-tags', BlogTagsController::class);
 
-     Route::resource('blog-category', BlogCategoryController::class);
 
+  //Notifications
+  Route::resource('notifications', NotificationsController::class);
 
 
-     //blogs
 
-     Route::resource('blogs', BlogController::class);
+  //Menus
 
+  Route::resource('menus', MenuController::class);
 
-      //blog tags
-    Route::resource('blog-tags', BlogTagsController::class);
+  // Logs
 
+  Route::get('add-to-log', [App\Http\Controllers\HomeController::class, 'myTestAddToLog'])->name('add-to-log');
 
-    //Notifications
-    Route::resource('notifications', NotificationsController::class); 
+  Route::get('logActivity', [App\Http\Controllers\HomeController::class, 'logActivity'])->name('logActivity');
 
+  Route::delete('logsdelete/{id}', [App\Http\Controllers\HomeController::class, 'logsdelete'])->name('logsdelete');
 
+  Route::post('get-attr-select', [App\Http\Controllers\admin\ProductController::class, 'getAtrValueSelect'])->name('get-attr-select');
 
-     //Menus
+  // reviews
 
-    Route::resource('menus', MenuController::class);
+  Route::resource('review', ReviewController::class);
 
-     // Logs
 
-     Route::get('add-to-log',[App\Http\Controllers\HomeController::class, 'myTestAddToLog'])->name('add-to-log');
 
-     Route::get('logActivity',[App\Http\Controllers\HomeController::class, 'logActivity'])->name('logActivity');
+  Route::get('user', [App\Http\Controllers\admin\UsersController::class, 'index2'])->name('user-index');
 
-     Route::delete('logsdelete/{id}',[App\Http\Controllers\HomeController::class, 'logsdelete'])->name('logsdelete');
+  Route::get('user-block/{id}', [App\Http\Controllers\admin\UsersController::class, 'blockUser'])->name('user-block');
 
-    Route::post('get-attr-select',[App\Http\Controllers\admin\ProductController::class, 'getAtrValueSelect'])->name('get-attr-select');
+  Route::get('store-cadit', [App\Http\Controllers\admin\UsersController::class, 'storeCradit'])->name('store-cadit');
 
-    // reviews
+  Route::post('store-transection', [App\Http\Controllers\admin\UsersController::class, 'storeTransection'])->name('store-transection');
 
-       Route::resource('review', ReviewController::class);
 
 
+  Route::get('delivered-orders', [App\Http\Controllers\admin\OrderController::class, 'deliveredorders'])->name('delivered-orders');
 
-       Route::get('user',[App\Http\Controllers\admin\UsersController::class, 'index2'])->name('user-index');
+  Route::get('order-qty-update', [App\Http\Controllers\admin\OrderController::class, 'orderQtyUpdate'])->name('order-qty-update');
 
-       Route::get('user-block/{id}',[App\Http\Controllers\admin\UsersController::class, 'blockUser'])->name('user-block');
+  Route::post('refund-order', [App\Http\Controllers\admin\OrderController::class, 'refundAmount'])->name('refund-order');
 
-       Route::get('store-cadit',[App\Http\Controllers\admin\UsersController::class, 'storeCradit'])->name('store-cadit');
+  Route::post('chnage-order-status', [App\Http\Controllers\admin\OrderController::class, 'changestatus'])->name('chnage-order-status');
 
-       Route::post('store-transection',[App\Http\Controllers\admin\UsersController::class, 'storeTransection'])->name('store-transection');
+  Route::get('invoice/{id}', [App\Http\Controllers\admin\OrderController::class, 'orderInvoice'])->name('invoice');
 
 
 
-     Route::get('delivered-orders',[App\Http\Controllers\admin\OrderController::class, 'deliveredorders'])->name('delivered-orders');
+  //customer
 
-     Route::get('order-qty-update',[App\Http\Controllers\admin\OrderController::class, 'orderQtyUpdate'])->name('order-qty-update');
+  Route::get('customers', [App\Http\Controllers\admin\UsersController::class, 'customer'])->name('customers');
 
-     Route::post('refund-order',[App\Http\Controllers\admin\OrderController::class, 'refundAmount'])->name('refund-order');
 
-     Route::post('chnage-order-status',[App\Http\Controllers\admin\OrderController::class, 'changestatus'])->name('chnage-order-status');
 
-     Route::get('invoice/{id}',[App\Http\Controllers\admin\OrderController::class, 'orderInvoice'])->name('invoice');
+  //import customer
 
 
 
-     //customer
+  Route::get('view-customer', [App\Http\Controllers\admin\UsersController::class, 'importView'])->name('view-customer');
 
-     Route::get('customers',[App\Http\Controllers\admin\UsersController::class, 'customer'])->name('customers');
+  Route::post('import-customer', [App\Http\Controllers\admin\UsersController::class, 'importCustomer'])->name('import-customer');
 
 
 
-     //import customer
 
 
+  //cahce clear
 
-     Route::get('view-customer',[App\Http\Controllers\admin\UsersController::class, 'importView'])->name('view-customer');
+  Route::get('cache-clear', [App\Http\Controllers\admin\UsersController::class, 'clearCache'])->name('cache-clear');
 
-    Route::post('import-customer',[App\Http\Controllers\admin\UsersController::class, 'importCustomer'])->name('import-customer'); 
+  Route::get('cookie-cache-clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('optimize');
+    Artisan::call('config:clear');
+    Artisan::call('route:clear');
+    Artisan::call('view:clear');
+    return redirect('https://beta.wasilonline.net/dashboard/dashboard/cache-clear');
+  })->name('cookie-cache-clear');
 
 
 
 
 
-    //cahce clear
+  //product import
 
-    Route::get('cache-clear',[App\Http\Controllers\admin\UsersController::class, 'clearCache'])->name('cache-clear'); 
 
-    Route::get('cookie-cache-clear', function() {
 
-      Artisan::call('cache:clear');
+  Route::get('file-import', [App\Http\Controllers\admin\ProductController::class, 'importView'])->name('import-view');
 
-      Artisan::call('optimize');
+  Route::post('import-product', [App\Http\Controllers\admin\ProductController::class, 'importproduct'])->name('import-product');
 
-      Artisan::call('config:clear');
-
-      Artisan::call('route:clear');
-
-      Artisan::call('view:clear');
-
-      return redirect('https://beta.wasilonline.net/dashboard/dashboard/cache-clear');
-
-    
-
-    })->name('cookie-cache-clear');
-
-
-
-
-
-     //product import
-
-
-
-     Route::get('file-import',[App\Http\Controllers\admin\ProductController::class, 'importView'])->name('import-view');
-
-    Route::post('import-product',[App\Http\Controllers\admin\ProductController::class, 'importproduct'])->name('import-product');
-
-    Route::get('export-product',[App\Http\Controllers\admin\ProductController::class,'exportProduct'])->name('export-product');
+  Route::get('export-product', [App\Http\Controllers\admin\ProductController::class, 'exportProduct'])->name('export-product');
 
 
 
@@ -531,9 +483,9 @@ Route::get('dummy-page-design',[App\Http\Controllers\admin\PagesController::clas
 
 
 
-  Route::get('vendor-view',[App\Http\Controllers\admin\VendorSettingController::class, 'importView'])->name('vendor-view');
+  Route::get('vendor-view', [App\Http\Controllers\admin\VendorSettingController::class, 'importView'])->name('vendor-view');
 
-  Route::post('import-vendor',[App\Http\Controllers\admin\VendorSettingController::class, 'importvendor'])->name('import-vendor');
+  Route::post('import-vendor', [App\Http\Controllers\admin\VendorSettingController::class, 'importvendor'])->name('import-vendor');
 
 
 
@@ -541,59 +493,55 @@ Route::get('dummy-page-design',[App\Http\Controllers\admin\PagesController::clas
 
 
 
-    Route::get('export-orders',[App\Http\Controllers\admin\OrderController::class,'exportOrder'])->name('export-orders');
-
-
-
-     
-
-          //user export
-
-   Route::get('export-users',[App\Http\Controllers\admin\UsersController::class,'exportUsers'])->name('export-users');
-
-
-
-    //Bidding
-
-    Route::resource('product-bids', BidController::class);
-
-
-
-    Route::get('winner/{id}',[App\Http\Controllers\admin\BidController::class,'makewinner'])->name('winner');
-    
+  Route::get('export-orders', [App\Http\Controllers\admin\OrderController::class, 'exportOrder'])->name('export-orders');
 
 
 
 
 
+  //user export
+
+  Route::get('export-users', [App\Http\Controllers\admin\UsersController::class, 'exportUsers'])->name('export-users');
 
 
 
-    Route::get('get-category/{id}', [ProductController::class,'getCategory'])->name('get-category');
+  //Bidding
 
-    });
-
-    //Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
+  Route::resource('product-bids', BidController::class);
 
 
 
+  Route::get('winner/{id}', [App\Http\Controllers\admin\BidController::class, 'makewinner'])->name('winner');
 
 
-    route::get('/index2', [UserController::class, 'index2']);
+  Route::get('get-category/{id}', [ProductController::class, 'getCategory'])->name('get-category');
+
+  // User Packages
+  Route::resource('packages', PackageController::class);
+  // Route::get('packages/', [PackageController::class, 'index'])->name('packages.index');
+});
+
+//Route::get('admin/home', [HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
 
 
-    route::get('/index3', [UserController::class, 'index3']);
+
+
+route::get('/index2', [UserController::class, 'index2']);
 
 
 
-    route::get('/index4', [UserController::class, 'index4']);
-
-    route::get('/index5', [UserController::class, 'index5']);
+route::get('/index3', [UserController::class, 'index3']);
 
 
 
-    Auth::routes();
+route::get('/index4', [UserController::class, 'index4']);
+
+route::get('/index5', [UserController::class, 'index5']);
+
+
+
+Auth::routes();
 
 
 
@@ -601,22 +549,13 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 
-Route::get('/clear-cache', function() {
-
+Route::get('/clear-cache', function () {
   Artisan::call('cache:clear');
-
   Artisan::call('optimize');
-
   Artisan::call('config:clear');
-
   Artisan::call('route:clear');
-
   Artisan::call('view:clear');
   Artisan::call('view:cache');
   Artisan::call('route:cache');
-
   return "Cache is cleared";
-
-
-
 });
