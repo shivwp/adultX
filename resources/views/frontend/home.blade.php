@@ -627,18 +627,19 @@
                     <div class="adultx-wrapper">
                         <h2 class="howAdult-wraper">Join AdultX for FREE</h2>
                         <div class="adult-form-wrpper">
-                            <form>
+                            <form method="POST" action="{{ route('storeuser') }}">
+                                @csrf
                                 <div class="username-wrapper">
                                     <label> Username </label>
-                                    <input placeholder="Choose a Username" type="text" />
+                                    <input placeholder="Choose a Username" name="first_name"type="text" />
                                 </div>
                                 <div class="username-wrapper">
                                     <label> Email </label>
-                                    <input placeholder="Enter your Email" type="text" />
+                                    <input placeholder="Enter your Email" name="email" type="text" />
                                 </div>
                                 <div class="username-wrapper">
                                     <label> Password </label>
-                                    <input placeholder="Enter your Password" type="text" />
+                                    <input placeholder="Enter your Password"name="password" type="text" />
                                 </div>
                                 <div class="checkline">
                                     <input type="checkbox" class="checkbox-input" />

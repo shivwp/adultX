@@ -9,6 +9,7 @@ use Auth;
 use Mail;
 use Session;
 use App\Models\User;
+use Hash;
 
 class HomeController extends Controller
 {
@@ -118,5 +119,54 @@ class HomeController extends Controller
             }
             return redirect('/model-dashboard');
         }
+    }
+    public function storeuser(Request $request)
+    {
+        //dd($request);
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:users',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['status' => false, 'error' => $validator->errors()], 200);
+        }
+        $user = User::create([
+            'first_name'=>$request->first_name,
+            'email'=>$request->email,
+            'password'=>Hash::make($request->password),
+           ]);
+        $user->roles()->sync(4);
+
+        if ($request->ajax()) {
+            //  //mail send to user
+            //     $email = $request->email;
+            //     if(!empty($email)){
+                     
+            //         $details = ['email' => $email,'name' =>$request->name];
+            //         Mail::send('mail.register', $details, function($message) use ($details){
+            //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
+            //         });
+            //     }
+
+            //     //mail send to admin
+            //     $email = $request->email;
+            //     $admindata = User::where('id',1)->first();
+            //     $adminemail = $admindata->email;
+            //     $name = $request->name;
+            //     if(!empty($email)){
+            //         $details = ['email' => $adminemail,'name' =>$request->name];
+            //         Mail::send('mail.adminregister', $details,function($message) use ($details){
+            //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
+            //         });
+            //     }
+           
+
+           
+
+            
+           
+        }
+
+        return redirect()->back();
     }
 }
