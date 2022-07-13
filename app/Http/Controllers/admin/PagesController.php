@@ -52,13 +52,13 @@ class PagesController extends Controller
 
             if($request->search){
 
-                $q->where('title', 'like', "%$request->search%");  
+                $q->where('title', 'like', "%$request->search%");
 
             }
 
              $d['page']=$q->paginate($pagination)->withQueryString();
 
-       
+
 
         return view('admin/page/index',$d);
 
@@ -108,7 +108,7 @@ class PagesController extends Controller
 
     {
 
-       // dd($request);
+       dd($request);
 
         $page = Page::updateOrCreate(
 
@@ -130,7 +130,7 @@ class PagesController extends Controller
 
             'arab_content'     => $request->input('arab_content'),
 
-            
+
 
         ]);
 
@@ -143,6 +143,8 @@ class PagesController extends Controller
             'Pagemeta_keywords' =>$request->input('page_keywords'),
 
             'Pagemeta_details'=>$request->input('page_details'),
+
+            'page_slider'=>
 
 
 
@@ -172,15 +174,15 @@ class PagesController extends Controller
 
         }
 
-       
 
-        
+
+
 
    $page->update();
 
     return redirect('/dashboard/pages')->with('status', 'your data is updated');
 
-    
+
 
     }
 
@@ -224,7 +226,7 @@ class PagesController extends Controller
 
     {
 
-        
+
 
         $d['title'] = "PAGE";
 
@@ -260,7 +262,7 @@ class PagesController extends Controller
 
     {
 
-        //
+
 
     }
 

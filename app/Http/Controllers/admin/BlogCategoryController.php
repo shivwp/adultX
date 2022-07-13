@@ -15,7 +15,7 @@ class BlogCategoryController extends Controller
      */
     public function index(Request $request)
     {
-        
+        // mail
         $d['title'] = "Blog Category";
         $d['buton_name'] = "ADD NEW";
         $pagination=10;
@@ -24,10 +24,10 @@ class BlogCategoryController extends Controller
         }
          $q=BlogsCategory::select('*')->orderBy('id','DESC');
             if($request->search){
-                $q->where('title', 'like', "%$request->search%");  
+                $q->where('title', 'like', "%$request->search%");
             }
         $d['cat']=$q->paginate($pagination)->withQueryString();
-        
+
         return view('admin/blog-cat/index',$d);
     }
 
@@ -58,13 +58,13 @@ class BlogCategoryController extends Controller
             // 'user_id'   => Auth::user()->id,
             'title'     => $request->input('title'),
             'arab_title'     => $request->input('arab_title'),
-            
+
         ]);
-       
-        
+
+
    $BlogsCategory->update();
     return redirect('/dashboard/blog-category')->with('status', 'your data is updated');
-    
+
     }
 
     /**
@@ -86,7 +86,7 @@ class BlogCategoryController extends Controller
      */
     public function edit($id)
     {
-        
+
         $d['title'] = "Blog Category";
         $d['blogcat']=BlogsCategory::findorfail($id);
         return view('admin/blog-cat/add',$d);
