@@ -63,7 +63,7 @@
                 <input type="hidden" name="userid" value="{{ old('userid', isset($model->users_auto_id) ? $model->users_auto_id : '') }}">
                 <h3 class="heading_detail">User Info</h3>
                     <div class="row">
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">First Name</label>
@@ -197,7 +197,7 @@
                                             <option value="{{$value->title}}" {{isset($model->Orientation) && ($model->Orientation == $value->title) ? "selected" : ''}}>{{$value->title}}</option>
                                         @endforeach
                                     @endif
-                
+
                                 </select>
                             </div>
                         </div>
@@ -210,7 +210,7 @@
                                         @foreach($model_cate as $cate)
                                             <option value="{{$cate->title}}" {{isset($model->Model_Category) && ($model->Model_Category == $cate->title) ? "selected" : ''}}>{{$cate->title}}</option>
                                         @endforeach
-                                    @endif                                    
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -237,7 +237,7 @@
                                             <option value="{{$lang->title}}" {{isset($model->Language) && ($model->Language == $lang->title) ? "selected" : ''}}>{{$lang->title}}</option>
                                         @endforeach
                                     @endif
-                                    
+
                                 </select>
                             </div>
                         </div>
@@ -251,7 +251,7 @@
                                             <option value="{{$hair->title}}" {{isset($model->Hair) && ($model->Hair == $hair->title) ? "selected" : ''}}>{{$hair->title}}</option>
                                         @endforeach
                                     @endif
-                                    
+
                                 </select>
                             </div>
                         </div>
@@ -268,7 +268,7 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">User Status</label>
@@ -307,7 +307,7 @@
                                 <input type="text" class="form-control" name="url3" placeholder="Enter Your Third Url" value="{{ old('url3', isset($model->url3) ? $model->url3 : '') }}" required>
                             </div>
                         </div>
-                        
+
                     </div>
                     <hr>
                     <h3 class="heading_detail">Social Links Info</h3>
@@ -351,7 +351,7 @@
                                 <input type="text" class="form-control" name="link6" placeholder="Enter CamSite Url" value="{{isset($social_link->camsite) ? $social_link->camsite : ''}}" required>
                             </div>
                         </div>
-                        
+
                     </div>
                     <hr>
                     <h3 class="heading_detail">Cost Info</h3>
@@ -400,7 +400,7 @@
                     @endif
             </div>
         </form>
-    </div>  
+    </div>
 @endsection
 @section('js')
 <script src="{{ URL::asset('assets/plugins/bootstrap-daterangepicker/moment.min.js') }}"></script>
