@@ -10,7 +10,7 @@
             </div>
             <div class="nav-btnwrapper">
                 <button class="joinfree-btn" id="navbtns">Join for free</button>
-                <a href="{{ route('user/login') }}">
+                <a href="{{ url('/user-login') }}">
                     <button class="login-btn" id="navbtns">Login</button>
                 </a>
 
