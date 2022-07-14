@@ -17,55 +17,103 @@
                             </div>
                         <!-- PAGE-HEADER END -->
 @endsection
-@section('content')	
+@section('content')
 						<!-- ROW-1 -->
 						<div class="row">
-							<div class="col-lg-12 col-md-12 col-sm-12 col-xl-6">
+							<div class="col-lg-12 col-md-12 col-sm-12 col-xl-12">
 								<div class="row">
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
 										<div class="card">
 											<div class="card-body text-center statistics-info">
 												<div class="counter-icon bg-primary mb-0 box-primary-shadow">
 													<i class="fe fe-trending-up text-white"></i>
 												</div>
-												<h6 class="mt-4 mb-1">Total Sales</h6>
-												<h2 class="mb-2 number-font">3516</h2>
+												<h6 class="mt-4 mb-1">Total Fans</h6>
+												<h2 class="mb-2 number-font">{{count($fancount)}}</h2>
 												<p class="text-muted"></p>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
 										<div class="card">
 											<div class="card-body text-center statistics-info">
 												<div class="counter-icon bg-secondary mb-0 box-secondary-shadow" >
 													<i class="fe fe-codepen text-white"></i>
 												</div>
-												<h6 class="mt-4 mb-1">Total Leads</h6>
-												<h2 class="mb-2 number-font">5692</h2>
+												<h6 class="mt-4 mb-1">Total Models</h6>
+												<h2 class="mb-2 number-font">{{count($modelcount)}}</h2>
 												<p class="text-muted"></p>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
 										<div class="card">
 											<div class="card-body text-center statistics-info">
 												<div class="counter-icon bg-success mb-0 box-success-shadow">
 													<i class="fe fe-dollar-sign text-white"></i>
 												</div>
-												<h6 class="mt-4 mb-1">Total Profit</h6>
-												<h2 class="mb-2  number-font">$2567</h2>
+												<h6 class="mt-4 mb-1">Total Earning</h6>
+												<h2 class="mb-2  number-font">${{$total_earning}}</h2>
 												<p class="text-muted"></p>
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-6">
+									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
 										<div class="card">
 											<div class="card-body text-center statistics-info">
 												<div class="counter-icon bg-info mb-0 box-info-shadow">
 													<i class="fe fe-briefcase text-white"></i>
 												</div>
-												<h6 class="mt-4 mb-1">Total Cost</h6>
-												<h2 class="mb-2  number-font">$34,789</h2>
+												<h6 class="mt-4 mb-1">Today Earning</h6>
+												<h2 class="mb-2  number-font">${{$today_earning}}</h2>
+												<p class="text-muted"></p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+										<div class="card">
+											<div class="card-body text-center statistics-info">
+												<div class="counter-icon bg-primary mb-0 box-info-shadow">
+													<i class="fe fe-briefcase text-white"></i>
+												</div>
+												<h6 class="mt-4 mb-1">Latest Registered Users</h6>
+												<h2 class="mb-2  number-font">{{count($countusers)}}</h2>
+												<p class="text-muted"></p>
+											</div>
+										</div>
+									</div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+										<div class="card">
+											<div class="card-body text-center statistics-info">
+												<div class="counter-icon bg-success mb-0 box-secondary-shadow" >
+													<i class="fe fe-codepen text-white"></i>
+												</div>
+												<h6 class="mt-4 mb-1">Online Models</h6>
+												<h2 class="mb-2 number-font">{{count($OnlineModel)}}</h2>
+												<p class="text-muted"></p>
+											</div>
+										</div>
+									</div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+										<div class="card">
+											<div class="card-body text-center statistics-info">
+												<div class="counter-icon bg-secondary mb-0 box-info-shadow">
+													<i class="fe fe-briefcase text-white"></i>
+												</div>
+												<h6 class="mt-4 mb-1">Online Fan</h6>
+												<h2 class="mb-2  number-font">{{count($Onlinefan)}}</h2>
+												<p class="text-muted"></p>
+											</div>
+										</div>
+									</div>
+                                    <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+										<div class="card">
+											<div class="card-body text-center statistics-info">
+												<div class="counter-icon bg-primary mb-0 box-primary-shadow">
+													<i class="fe fe-trending-up text-white"></i>
+												</div>
+												<h6 class="mt-4 mb-1">Today Feeds</h6>
+												<h2 class="mb-2 number-font">{{count($today_feeds)}}</h2>
 												<p class="text-muted"></p>
 											</div>
 										</div>
@@ -92,7 +140,7 @@
 
 						<!-- <!-- ROW-3 -->
 						<div class="row">
-						
+
 							<div class="col-sm-12 col-md-12 col-lg-12 col-xl-12">
 								<div class="card">
 									<div class="card-header">
@@ -122,14 +170,14 @@
 										</div>
 									</div>
 								</div>
-				
+
 							</div><!-- COL END -->
 						</div>
 						<!-- ROW-3 END -->
 
-				
 
-						
+
+
 					</div>
 				</div>
 				<!-- CONTAINER END -->

@@ -143,14 +143,6 @@ class PagesController extends Controller
 
             'Pagemeta_details'=>$request->input('page_details'),
 
-            'page_slider'=>
-
-
-
-
-
-
-
         ];
 
         foreach($metaarray as $key=> $vl){

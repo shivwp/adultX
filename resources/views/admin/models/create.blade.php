@@ -279,6 +279,28 @@
                                 </select>
                             </div>
                         </div>
+                        <div class="col-md-6">
+                            <div class="form-group d-flex mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  name="featured" id="flexCheckDefault1" value="1" {{ (isset($model) && $model->featured == 1) ? 'checked'  : '' }}>
+                                    <label class="form-check-label" for="flexCheckDefault1">
+                                      <h6>Featured</h6>
+                                    </label>
+                                  </div>
+                                <div class="form-check ml-5">
+                                    <input class="form-check-input" type="checkbox" value="1" {{ (isset($model) && $model->trending == 1) ? 'checked'  : '' }} name="trending" id="flexCheckDefault2">
+                                    <label class="form-check-label" for="flexCheckDefault2">
+                                      <h6>Trending</h6>
+                                    </label>
+                                  </div>
+                                <div class="form-check ml-5">
+                                    <input class="form-check-input" type="checkbox" value="1" {{ (isset($model) && $model->explore == 1) ? 'checked'  : '' }} name="explore"  id="flexCheckDefault3">
+                                    <label class="form-check-label" for="flexCheckDefault3">
+                                      <h6>Explore</h6>
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="form-label">Discription</label>
@@ -312,9 +334,9 @@
                     <hr>
                     <h3 class="heading_detail">Social Links Info</h3>
                     <div class="row">
-                        @php
+                        {{--  @php
                             $social_link = json_decode($model->socail_links);
-                        @endphp
+                        @endphp  --}}
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="form-label">Twitter</label>
