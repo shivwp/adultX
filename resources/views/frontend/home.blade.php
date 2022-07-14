@@ -137,50 +137,21 @@
                     <a href="onlinepage.html">View all</a>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/16.png" alt="" class="model-img" />
-                            <div class="col-overlay"></div>
-                            <label class="new-label">New</label>
-                            <div class="colname-wrapper">
-                                <label class="colname">Naomi Nova</label>
-                                <span class="colcost">$1.50 per message</span>
+                    @foreach ($online as $item)
+                        <div class="col-sm-3">
+                            <div class="first-col-wrapper">
+                                <img class="model-img" src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                    alt="Model-Image">
+
+                                <div class="col-overlay"></div>
+                                <label class="new-label">New</label>
+                                <div class="colname-wrapper">
+                                    <label class="colname">{{ $item->first_name }}</label>
+                                    <span class="colcost">${{ $item->cost_msg }}per message</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/18.png" alt="" class="model-img" />
-                            <div class="col-overlay"></div>
-                            <!-- <label class="new-label">New</label> -->
-                            <div class="colname-wrapper">
-                                <label class="colname">Naomi Nova</label>
-                                <span class="colcost">$1.50 per message</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/15.png" alt="" class="model-img" />
-                            <div class="col-overlay"></div>
-                            <label class="new-label">Hot</label>
-                            <div class="colname-wrapper">
-                                <label class="colname">Naomi Nova</label>
-                                <span class="colcost">$1.50 per message</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/21.png" alt="" class="model-img" />
-                            <div class="col-overlay"></div>
-                            <!-- <label class="new-label">New</label> -->
-                            <div class="colname-wrapper">
-                                <label class="colname">Naomi Nova</label>
-                                <span class="colcost">$1.50 per message</span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
 
@@ -192,54 +163,23 @@
                     <a href="#">View all</a>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/18.png" alt="" class="model-img" />
-                            <label class="new-label">New</label>
-                            <div class="col-overlay">
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
+
+                    @foreach ($new as $item)
+                        <div class="col-sm-3">
+                            <div class="first-col-wrapper">
+                                <img class="model-img" src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                    alt="Model-Image">
+                                <label class="new-label">New</label>
+                                <div class="col-overlay">
+                                    <div class="colname-wrapper">
+                                        <label class="colname">{{ $item->first_name }}</label>
+                                        <span class="colcost">${{ $item->cost_msg }}per message</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/Rectangle.png" alt="" class="model-img" />
-                            <div class="col-overlay">
-                                <!-- <label class="new-label">New</label> -->
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/19.png" alt="" class="model-img" />
-                            <label class="new-label">Hot</label>
-                            <div class="col-overlay">
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/20.png" alt="" class="model-img" />
-                            <div class="col-overlay">
-                                <!-- <label class="new-label">New</label> -->
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
 
@@ -260,48 +200,22 @@
                     <div class="row justify-content-center">
                         <div class="col-md-12">
                             <div class="owl-carousel owl-theme" id="staff">
-                                <div class="item">
-                                    <div class="box-b staff-itemwrapper">
-                                        <div class="box-img">
-                                            <img src="./image/available4.png" alt="#" />
-                                            <span class="callsing">
-                                                <i class="fa fa-phone" aria-hidden="true"></i></span>
+
+                                @foreach ($phone as $item)
+                                    <div class="item">
+                                        <div class="box-b staff-itemwrapper">
+                                            <div class="box-img">
+                                                <img class="model-img"
+                                                    src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                                    alt="Model-Image">
+                                                <span class="callsing">
+                                                    <i class="fa fa-phone" aria-hidden="true"></i></span>
+                                            </div>
+                                            <h3>{{ $item->first_name }}</h3>
+                                            <p>Call for ${{ $item->cost_audiocall }} per minute</p>
                                         </div>
-                                        <h3>Jasmin Jai</h3>
-                                        <p>Call for $1.50 per minute</p>
                                     </div>
-                                </div>
-                                <div class="item">
-                                    <div class="box-b staff-itemwrapper">
-                                        <div class="box-img">
-                                            <img src="./image/available1.png" alt="#" />
-                                            <span class="callsing">
-                                                <i class="fa fa-phone" aria-hidden="true"></i></span>
-                                        </div>
-                                        <h3>Jasmin Jai</h3>
-                                        <p>Call for $1.50 per minute</p>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="box-b staff-itemwrapper">
-                                        <div class="box-img">
-                                            <img src="./image/available2.png" alt="#" />
-                                            <span class="callsing">
-                                                <i class="fa fa-phone" aria-hidden="true"></i></span>
-                                        </div>
-                                        <h3>Jasmin Jai</h3>
-                                        <p>Call for $1.50 per minute</p>
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="box-b staff-itemwrapper">
-                                        <div class="box-img">
-                                            <img src="./image/available3.png" alt="#" />
-                                        </div>
-                                        <h3>Jasmin Jai</h3>
-                                        <p>Call for $1.50 per minute</p>
-                                    </div>
-                                </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>
@@ -321,58 +235,23 @@
                     <a href="videocallpage.html">View all</a>
                 </div>
                 <div class="row">
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/Rectangle.png" alt="" class="model-img" />
-                            <label class="new-label">New</label>
-                            <img src="./image/videobtn.png" alt="#" class="videobtnicon" />
-                            <div class="col-overlay">
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/Rectangle.png" alt="" class="model-img" />
-                            <img src="./image/videobtn.png" alt="#" class="videobtnicon" />
-                            <div class="col-overlay">
-                                <!-- <label class="new-label">New</label> -->
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/Rectangle.png" alt="" class="model-img" />
-                            <label class="new-label">Hot</label>
-                            <img src="./image/videobtn.png" alt="#" class="videobtnicon" />
-                            <div class="col-overlay">
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="first-col-wrapper">
-                            <img src="./image/Rectangle.png" alt="" class="model-img" />
-                            <div class="col-overlay">
+                    @foreach ($video as $item)
+                        <div class="col-sm-3">
+                            <div class="first-col-wrapper">
+
+                                <img class="model-img" src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                    alt="Model-Image">
+                                <label class="new-label">New</label>
                                 <img src="./image/videobtn.png" alt="#" class="videobtnicon" />
-                                <!-- <label class="new-label">New</label> -->
-                                <div class="colname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                    <span class="colcost">$1.50 per message</span>
+                                <div class="col-overlay">
+                                    <div class="colname-wrapper">
+                                        <label class="colname">{{ $item->first_name }}</label>
+                                        <span class="colcost">${{ $item->cost_audiocall }} per Video Call</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
             <!-- Availebal call wrpp end -->
@@ -517,48 +396,19 @@
                     <a href="trendingpage.html">View all</a>
                 </div>
                 <div class="row">
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="Tranding-model-wrapper">
-                            <img src="./image/Ellipse10.png" alt="#" />
-                            <div class="Trandingcol-overlay">
-                                <div class="Trandingcolname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
+                    @foreach ($trending as $item)
+                        <div class="col-sm-6 col-md-4 col-lg-3">
+                            <div class="Tranding-model-wrapper">
+                                <img src="{{ url('profile-image') . '/' . $item->profile_image }}" alt="#" />
+                                <div class="Trandingcol-overlay">
+                                    <div class="Trandingcolname-wrapper">
+                                        <label class="colname">{{ $item->first_name }}</label>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="Tranding-model-wrapper">
-                            <img src="./image/trending1.png" alt="#" />
-                            <div class="Trandingcol-overlay">
-                                <!-- <label class="new-label">New</label> -->
-                                <div class="Trandingcolname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="Tranding-model-wrapper">
-                            <img src="./image/Ellipse10.png" alt="#" />
-                            <div class="Trandingcol-overlay">
-                                <div class="Trandingcolname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-4 col-lg-3">
-                        <div class="Tranding-model-wrapper">
-                            <img src="./image/trending2.png" alt="#" />
-                            <div class="Trandingcol-overlay">
-                                <!-- <label class="new-label">New</label> -->
-                                <div class="Trandingcolname-wrapper">
-                                    <label class="colname">Naomi Nova</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
             <!-- Availebal call wrpp end -->
@@ -578,10 +428,13 @@
                 <div class="main">
                     <div class="container">
                         <div class="card_wrapper">
-                            <div class="card">
-                                <img src="./image/explore1.png" alt="" />
-                            </div>
-                            <div class="card">
+                            @foreach ($explore as $item)
+                                <div class="card">
+                                    <img src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                        alt="" />
+                                </div>
+                            @endforeach
+                            {{-- <div class="card">
                                 <img src="./image/explore2.png" alt="" />
                             </div>
                             <div class="card">
@@ -601,7 +454,7 @@
                             </div>
                             <div class="card">
                                 <img src="./image/explore8.png" alt="" />
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -632,22 +485,43 @@
                                 <div class="username-wrapper">
                                     <label> Username </label>
                                     <input placeholder="Choose a Username" name="first_name"type="text" />
+                                    <small class="text-danger">
+                                        @error('first_name')
+                                            {{ $message }}
+                                        @enderror
+                                    </small>
                                 </div>
                                 <div class="username-wrapper">
                                     <label> Email </label>
                                     <input placeholder="Enter your Email" name="email" type="text" />
+                                    <small class="text-danger">
+                                        @error('email')
+                                            {{ $message }}
+                                        @enderror
+                                    </small>
                                 </div>
                                 <div class="username-wrapper">
                                     <label> Password </label>
                                     <input placeholder="Enter your Password"name="password" type="text" />
+                                    <small class="text-danger">
+                                        @error('password')
+                                            {{ $message }}
+                                        @enderror
+                                    </small>
                                 </div>
                                 <div class="checkline">
-                                    <input type="checkbox" class="checkbox-input" />
+                                    <input type="checkbox" class="checkbox-input" name="readbox" />
                                     <p>
                                         I have read and agreed to AdultX.com’s<b>
                                             Terms of Service</b>
                                     </p>
+
                                 </div>
+                                <small class="text-danger">
+                                    @error('readbox')
+                                        {{ $message }}
+                                    @enderror
+                                </small><br>
                                 <button class="singin-btn">Sign up for free</button>
                             </form>
                         </div>

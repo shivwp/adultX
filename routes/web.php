@@ -46,6 +46,7 @@ use App\Http\Controllers\admin\BlogTagsController;
 use App\Http\Controllers\admin\NotificationsController;
 use App\Http\Controllers\admin\PackageController;
 use App\Http\Controllers\admin\SupportTicketsController;
+use App\Http\Controllers\admin\HomeController;
 
 
 Route::get('/',[App\Http\Controllers\frontend\FrontendController::class, 'index'])->name('main');
@@ -53,7 +54,7 @@ Route::get('/',[App\Http\Controllers\frontend\FrontendController::class, 'index'
 
 //login
 
-Route::get('user-login',[App\Http\Controllers\HomeController::class, 'logs'])->name('user/login');
+Route::get('user-login',[App\Http\Controllers\HomeController::class, 'logs'])->name('user-login');
 Route::get('sign-up',[App\Http\Controllers\HomeController::class, 'registeruser'])->name('sign-up');
 Route::post('storeuser',[App\Http\Controllers\HomeController::class, 'storeuser'])->name('storeuser');
 Route::get('my-account',[App\Http\Controllers\HomeController::class, 'userlogin'])->name('my-account');
@@ -64,12 +65,12 @@ Auth::routes(['register' => true]);
 
 Route::redirect('/home', '/');
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['auth']], function () {
+  Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
+  // Route::get('/', 'HomeController@index')->name('home');
 
-  Route::get('/', 'HomeController@index')->name('home');
-
-  Route::get('/', function () {
-    return view('index');
-  });
+  // Route::get('/', function () {
+  //   return view('index');
+  // });
 
   //Users
 

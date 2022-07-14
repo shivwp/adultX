@@ -141,15 +141,7 @@ class PagesController extends Controller
 
             'Pagemeta_keywords' =>$request->input('page_keywords'),
 
-            'Pagemeta_details'=>$request->input('page_details'),
-
-            'page_slider'=>
-
-
-
-
-
-
+            'Pagemeta_details'=>$request->input('page_details'),    
 
         ];
 
