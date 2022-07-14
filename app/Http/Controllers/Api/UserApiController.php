@@ -2578,37 +2578,6 @@ class UserApiController extends Controller
 
 
         $user = User::where('id', '=', $request->user_id)->first();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         if(!empty($user))
 
 

@@ -2,7 +2,7 @@
 <div class="app-sidebar__overlay" data-toggle="sidebar"></div>
 <aside class="app-sidebar">
     <div class="side-header">
-        <a class="header-brand1" href="{{ url('/' . ($page = 'index')) }}">
+        <a class="header-brand1" href="{{ url('/dashboard') }}">
             <img src="{{ URL::asset('/images/logo/1657100822.png') }}" class="header-brand-img desktop-logo"
                 alt="logo">
             <img src="{{ URL::asset('/images/logo/1657100822.png') }}" class="header-brand-img toggle-logo"
@@ -98,7 +98,7 @@
                         class="angle fa fa-angle-right"></i></a>
                 <ul class="slide-menu">
                     <!-- <li><a href="{{ route('dashboard.blog-category.index') }}" class="slide-item">Feed Category</a></li>
-                                                                                                                                                                    <li><a href="{{ route('dashboard.blog-tags.index') }}" class="slide-item">Feed Tags</a></li> -->
+                                                                                                                                                                            <li><a href="{{ route('dashboard.blog-tags.index') }}" class="slide-item">Feed Tags</a></li> -->
                     <li><a href="{{ route('dashboard.blogs.index') }}" class="slide-item">Feed List</a></li>
                 </ul>
             </li>
