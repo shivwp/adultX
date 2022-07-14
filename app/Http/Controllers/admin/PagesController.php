@@ -108,7 +108,7 @@ class PagesController extends Controller
 
     {
 
-       dd($request);
+       
 
         $page = Page::updateOrCreate(
 
@@ -144,7 +144,7 @@ class PagesController extends Controller
 
             'Pagemeta_details'=>$request->input('page_details'),
 
-            'page_slider'=>
+
 
 
 
