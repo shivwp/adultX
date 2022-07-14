@@ -64,12 +64,12 @@ Auth::routes(['register' => true]);
 
 Route::redirect('/home', '/');
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['auth']], function () {
+    Route::get('/',[App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//   Route::get('/', 'HomeController@index')->name('home');
 
-  Route::get('/', 'HomeController@index')->name('home');
-
-  Route::get('/', function () {
-    return view('index');
-  });
+//   Route::get('/', function () {
+//     return view('index');
+//   });
 
   //Users
 
@@ -278,7 +278,7 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', 'middleware' => ['a
 
   Route::resource('homepage', HomepageController::class);
 
-  //currency 
+  //currency
 
   Route::resource('currency', CurrencyController::class);
 

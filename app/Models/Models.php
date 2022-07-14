@@ -31,6 +31,9 @@ class Models extends Model
         'cost_audiomsg',
         'cost_audiocall',
         'cost_videocall',
+        'featured',
+        'trending',
+        'explore',
         'socail_links',
     ];
 

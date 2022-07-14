@@ -9,7 +9,10 @@ use Auth;
 use Mail;
 use Session;
 use App\Models\User;
+use App\Models\Earning;
+use App\Models\Blogs;
 use Hash;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -31,7 +34,49 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $dt = new DateTime();
+
+
+        $fancount = User::whereHas('roles', function ($q) {
+            $q->where('title', '=', "Fan");
+       })->get();
+        $modelcount = User::whereHas('roles', function ($q) {
+            $q->where('title', '=', "Model");
+       })->get();
+       $date = \Carbon\Carbon::today()->subDays(7);
+       $countusers = User::where('created_at', '>=', $date)->get();
+       $total_earning = Earning::sum('amount');
+
+        $today_date= $dt->format('Y-m-d');
+
+       $today_earning = Earning::whereDate('created_at',$today_date)->sum('amount');
+
+       $today_feeds = Blogs::whereDate('created_at',$today_date)->get();
+
+
+
+       $OnlineModel = User::whereHas('roles', function ($q) {
+        $q->where([
+            'title'=> "Model",
+            'is_online'=> "1",
+        ]);
+   })->get();
+       $Onlinefan = User::whereHas('roles', function ($q) {
+        $q->where([
+            'title'=> "Fan",
+            'is_online'=> "1",
+        ]);
+   })->get();
+
+       $d['countusers']=$countusers;
+       $d['fancount']=$fancount;
+       $d['modelcount']=$modelcount;
+       $d['total_earning']=$total_earning;
+       $d['today_earning']=$today_earning;
+       $d['OnlineModel']=$OnlineModel;
+       $d['Onlinefan']=$Onlinefan;
+       $d['today_feeds']=$today_feeds;
+        return view('index', $d);
     }
      public function myTestAddToLog()
     {
@@ -107,7 +152,7 @@ class HomeController extends Controller
                 return response()->json(['status' => true, 'msg' => 'Admin log in ', 'redirect_to' => 'admin'], 200);
             }
             return redirect('/dashboard');
-        } 
+        }
         if (Auth::user()->roles->first()->title == 'Fan' || Auth::user()->roles->first()->title == 'Admin') {
             if ($request->ajax()) {
                 return response()->json(['status' => true, 'msg' => 'Admin log in ', 'redirect_to' => 'Fan'], 200);
@@ -127,7 +172,7 @@ class HomeController extends Controller
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|unique:users',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['status' => false, 'error' => $validator->errors()], 200);
         }
@@ -142,7 +187,7 @@ class HomeController extends Controller
             //  //mail send to user
             //     $email = $request->email;
             //     if(!empty($email)){
-                     
+
             //         $details = ['email' => $email,'name' =>$request->name];
             //         Mail::send('mail.register', $details, function($message) use ($details){
             //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
@@ -160,12 +205,12 @@ class HomeController extends Controller
             //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
             //         });
             //     }
-           
 
-           
 
-            
-           
+
+
+
+
         }
 
         return redirect()->back();
