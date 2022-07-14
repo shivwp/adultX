@@ -20,7 +20,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth');
+        $this->middleware('auth');
         // main
     }
 
@@ -138,7 +138,35 @@ class HomeController extends Controller
            ]);
         $user->roles()->sync(4);
 
-      
+        if ($request->ajax()) {
+            //  //mail send to user
+            //     $email = $request->email;
+            //     if(!empty($email)){
+                     
+            //         $details = ['email' => $email,'name' =>$request->name];
+            //         Mail::send('mail.register', $details, function($message) use ($details){
+            //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
+            //         });
+            //     }
+
+            //     //mail send to admin
+            //     $email = $request->email;
+            //     $admindata = User::where('id',1)->first();
+            //     $adminemail = $admindata->email;
+            //     $name = $request->name;
+            //     if(!empty($email)){
+            //         $details = ['email' => $adminemail,'name' =>$request->name];
+            //         Mail::send('mail.adminregister', $details,function($message) use ($details){
+            //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
+            //         });
+            //     }
+           
+
+           
+
+            
+           
+        }
 
         return redirect()->back();
     }

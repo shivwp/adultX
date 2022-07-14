@@ -52,43 +52,6 @@
                                 </li>
                             </ul>
                             <div class="tab-content" id="pills-tabContent">
-                                <div class="tab-pane fade show active loginform-wrapper" id="pills-home" role="tabpanel"
-                                    aria-labelledby="pills-home-tab">
-                                    <form method="POST" action="{{ route('storeuser') }}">
-                                        @csrf
-                                        <div class="singpform-wraper">
-                                            <div class="inputfild-wrapp" style="border-bottom: 1px solid #193147">
-                                                <label class="input-label">Display Name</label>
-                                                <input type="text" placeholder="name" required
-                                                    class="Displayname-input" style="" name="first_name" />
-                                            </div>
-                                            <div class="inputfild-wrapp" style="border-bottom: 1px solid #193147">
-                                                <label class="input-label">Email Address</label>
-                                                <input type="gmail" placeholder="Email" class="email-adrrs"required
-                                                    name="email" />
-                                            </div>
-                                            <div class="inputfild-wrapp">
-                                                <label class="input-label">Password</label>
-                                                <input type="text" placeholder="Password"
-                                                    class="lockpassword"required name="password" />
-                                            </div>
-                                        </div>
-                                        <div class="checkinput-wraper">
-                                            <input type="checkbox" class="ckeckoutinpt" />
-                                            <p>
-                                                I have read and agreed to AdultX.com’s
-                                                <b>Terms of Service</b>
-                                            </p>
-                                        </div>
-                                        <div class="login-pagebtn-wrapp">
-                                            <button class="singupbtn">Sign up</button>
-
-                                            <button class="applyasmodel-btn">
-                                                Apply as a modal
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
                                 <div class="tab-pane fade" id="pills-profile" role="tabpanel"
                                     aria-labelledby="pills-profile-tab">
                                     <div class="tab-pane fade show active loginform-wrapper" id="pills-home"
@@ -98,13 +61,13 @@
                                             <div class="singpform-wraper">
                                                 <div class="inputfild-wrapp" style="border-bottom: 1px solid #193147">
                                                     <label class="input-label">Email Address</label>
-                                                    <input type="gmail" placeholder="Email" name="email" required
+                                                    <input type="email" placeholder="Email" name="email"
                                                         class="email-adrrs" />
                                                 </div>
                                                 <div class="inputfild-wrapp">
                                                     <label class="input-label">Password</label>
-                                                    <input type="text" placeholder="Password" class="lockpassword"
-                                                        required name="password" />
+                                                    <input type="password" placeholder="Password" name="password"
+                                                        class="lockpassword" />
                                                 </div>
                                             </div>
                                             <div class="checkinput-wraperonlogin">
@@ -126,6 +89,43 @@
                                         </form>
                                     </div>
                                 </div>
+                                <div class="tab-pane fade show active loginform-wrapper" id="pills-home" role="tabpanel"
+                                    aria-labelledby="pills-home-tab">
+                                    <form>
+                                        <div class="singpform-wraper">
+                                            <div class="inputfild-wrapp" style="border-bottom: 1px solid #193147">
+                                                <label class="input-label">Display Name</label>
+                                                <input type="text" placeholder="name" required
+                                                    class="Displayname-input" style="" />
+                                            </div>
+                                            <div class="inputfild-wrapp" style="border-bottom: 1px solid #193147">
+                                                <label class="input-label">Email Address</label>
+                                                <input type="gmail" placeholder="Email" name="email"
+                                                    class="email-adrrs" />
+                                            </div>
+                                            <div class="inputfild-wrapp">
+                                                <label class="input-label">Password</label>
+                                                <input type="text" placeholder="Password"
+                                                    name="password"class="lockpassword" />
+                                            </div>
+                                        </div>
+                                        <div class="checkinput-wraper">
+                                            <input type="checkbox" class="ckeckoutinpt" />
+                                            <p>
+                                                I have read and agreed to AdultX.com’s
+                                                <b>Terms of Service</b>
+                                            </p>
+                                        </div>
+                                        <div class="login-pagebtn-wrapp">
+                                            <button class="singupbtn">Sign up</button>
+
+                                            <button class="applyasmodel-btn">
+                                                Apply as a modal
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+
                             </div>
                         </div>
                     </div>

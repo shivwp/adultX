@@ -45,7 +45,7 @@ class HomepageController extends Controller
             $banner=$request->banner;
             if($slider_image) {
 
-                for ($i=0; $i <$loop ; $i++) { 
+                for ($i=0; $i <$loop ; $i++) {
 
                     if(!empty($slider_image[$i]['image'])) {
 
@@ -89,10 +89,10 @@ class HomepageController extends Controller
                 }
 
             }
-           
+
 
         }
-        
+
 
         if($request->has('banner')) {
 
@@ -166,9 +166,9 @@ class HomepageController extends Controller
         }
 
         $thumb_adv='';
-        
+
         if($request->has('adv_img')) {
-            
+
           $file=$request->adv_img;
             if($request->has('adv_img')) {
 
@@ -180,15 +180,15 @@ class HomepageController extends Controller
         }
         else
         {
-               $thumb_adv = $request->adv_img_prev;  
+               $thumb_adv = $request->adv_img_prev;
 
         }
 
         $arab_thumb_adv='';
-        
+
         if($request->has('arab_adv_img')) {
-            
-          
+
+
             if($request->has('arab_adv_img')) {
                 $file=$request->arab_adv_img;
                 $arab_adv_name=uniqid().$file->getClientOriginalName();
@@ -199,7 +199,7 @@ class HomepageController extends Controller
         }
         else
         {
-               $arab_thumb_adv = $request->arab_adv_img_prev;  
+               $arab_thumb_adv = $request->arab_adv_img_prev;
 
         }
 
@@ -218,30 +218,30 @@ class HomepageController extends Controller
 
         }
         else{
-            $thumb_banner = $request->banner_img_prev; 
+            $thumb_banner = $request->banner_img_prev;
         }
 
         $arab_thumb_banner='';
         if($request->has('arab_banner_img')) {
 
             $file_banner_arab=$request->arab_banner_img;
-  
+
               if($request->has('arab_banner_img')) {
                   $name1_arab=uniqid().$file_banner_arab->getClientOriginalName();
-  
+
                   $file_banner_arab->move('img/slider', $name1_arab);
                   $arab_thumb_banner = $name1_arab;
               }
-  
+
           }
           else{
-              $arab_thumb_banner = $request->arab_banner_img_prev; 
+              $arab_thumb_banner = $request->arab_banner_img_prev;
           }
 
           $giftcard_image='';
           if($request->has('giftcard_image')) {
             $giftcard_image1=$request->giftcard_image;
-  
+
             if($request->has('giftcard_image')) {
                 $name1_gift=uniqid().$giftcard_image1->getClientOriginalName();
 
@@ -250,13 +250,13 @@ class HomepageController extends Controller
             }
           }
           else{
-            $giftcard_image = $request->prev_arab_giftcard_image; 
+            $giftcard_image = $request->prev_arab_giftcard_image;
           }
 
           $arab_giftcard_image='';
           if($request->has('arab_giftcard_image')) {
             $arab_gift_img=$request->arab_giftcard_image;
-  
+
             if($request->has('arab_giftcard_image')) {
                 $name1_gift_aarab=uniqid().$arab_gift_img->getClientOriginalName();
 
@@ -265,11 +265,11 @@ class HomepageController extends Controller
             }
           }
           else{
-            $arab_giftcard_image = $request->prev_arab_giftcard_image; 
+            $arab_giftcard_image = $request->prev_arab_giftcard_image;
           }
 
 
-          
+
 
        $content['content'] = $request->input('content');
        $content['slider'] = $thumb;
@@ -280,7 +280,7 @@ class HomepageController extends Controller
        $content['arab_giftcard_image'] = $arab_giftcard_image;
        $content['giftcard_image_url'] = $request->giftcard_image_url;
        $content['giftcard_image_alt'] = $request->giftcard_image_alt;
-       
+
        $content['banner_img'] = $thumb_banner;
        $content['arab_banner_img'] = $arab_thumb_banner;
        $content['sale_banner_alt_tag'] = $request->sale_banner_alt_tag;
@@ -496,13 +496,13 @@ class HomepageController extends Controller
 
     public function uploadImage($file, $type) {
 
-        // 
+        //
 
         // $name = time().'.'.$file->extension();
 
         $name = uniqid().$file->getClientOriginalName();
 
-        $file->move('img/slider', $name);  
+        $file->move('img/slider', $name);
 
         return $name;
 
