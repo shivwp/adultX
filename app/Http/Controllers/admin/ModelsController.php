@@ -20,7 +20,7 @@ class ModelsController extends Controller
 {
     public function index(){
         $d['title'] = "Model";
-       
+
         // dd($d['model']);
         $d['buton_name'] = "ADD NEW";
         $pagination=10;
@@ -33,13 +33,15 @@ class ModelsController extends Controller
                     ->select('users.*','models.*','users.id as users_auto_id')
                     ->where('role_user.role_id', '=', 6);
         if(!empty($request->search)){
-            $q->where('title', 'like', "%$request->search%");  
+            $q->where('title', 'like', "%$request->search%");
         }
         $d['model']=$q->paginate($pagination)->withQueryString();
-        return view('admin.models.index',$d); 
+        return view('admin.models.index',$d);
     }
 
     public function create(){
+
+
 
         $d['title'] = "Model Add";
         $d['roles'] = Role::all()->pluck('title', 'id');
@@ -60,8 +62,8 @@ class ModelsController extends Controller
     }
     public function store(Request $request)
     {
-        // dd($request);
-        
+
+// dd($request->featured);
         $d['model'] = DB::table('users')
                     ->leftjoin('role_user', 'role_user.user_id', '=', 'users.id')
                     ->leftjoin('models', 'models.user_id', '=', 'users.id')
@@ -82,6 +84,7 @@ class ModelsController extends Controller
             'gender'        => $request->gender,
             'user_status'   => $request->user_status,
             'discription'   => $request->description,
+
         ]);
         $user->roles()->sync(6);
 
@@ -108,6 +111,24 @@ class ModelsController extends Controller
             'website'       => $request->link5,
             'camsite'       => $request->link6,
         ];
+
+        if($request->featured == 1){
+            $featured=1;
+        }else{
+             $featured=0;
+        }
+
+        if($request->input('trending')==1){
+            $trending=1;
+        }else{
+             $trending=0;
+        }
+
+        if($request->input('explore')==1){
+            $explore=1;
+        }else{
+             $explore=0;
+        }
         $models = Models::updateOrCreate(['id'=>$request->id],[
 
             'user_id'           => $user_id->id,
@@ -130,7 +151,10 @@ class ModelsController extends Controller
             'cost_audiocall'    => $request->costaudio_call,
             'cost_videocall'    => $request->cost_videocall,
             'socail_links'      => json_encode($social_links, true),
-            
+            'featured'          => $featured,
+            'trending'          => $trending,
+            'explore'           => $explore,
+
         ]);
         if($request->hasfile('gallery_image'))
         {
@@ -141,7 +165,7 @@ class ModelsController extends Controller
               $destinationPath = 'gallery images';
               $image->move($destinationPath, $name);
               $gallery_image_name[] =  $name;
-                  
+
             }
         }
 

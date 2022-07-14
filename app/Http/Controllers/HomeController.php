@@ -9,7 +9,10 @@ use Auth;
 use Mail;
 use Session;
 use App\Models\User;
+use App\Models\Earning;
+use App\Models\Blogs;
 use Hash;
+use DateTime;
 
 class HomeController extends Controller
 {
@@ -30,7 +33,49 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('index');
+        $dt = new DateTime();
+
+
+        $fancount = User::whereHas('roles', function ($q) {
+            $q->where('title', '=', "Fan");
+       })->get();
+        $modelcount = User::whereHas('roles', function ($q) {
+            $q->where('title', '=', "Model");
+       })->get();
+       $date = \Carbon\Carbon::today()->subDays(7);
+       $countusers = User::where('created_at', '>=', $date)->get();
+       $total_earning = Earning::sum('amount');
+
+        $today_date= $dt->format('Y-m-d');
+
+       $today_earning = Earning::whereDate('created_at',$today_date)->sum('amount');
+
+       $today_feeds = Blogs::whereDate('created_at',$today_date)->get();
+
+
+
+       $OnlineModel = User::whereHas('roles', function ($q) {
+        $q->where([
+            'title'=> "Model",
+            'is_online'=> "1",
+        ]);
+   })->get();
+       $Onlinefan = User::whereHas('roles', function ($q) {
+        $q->where([
+            'title'=> "Fan",
+            'is_online'=> "1",
+        ]);
+   })->get();
+
+       $d['countusers']=$countusers;
+       $d['fancount']=$fancount;
+       $d['modelcount']=$modelcount;
+       $d['total_earning']=$total_earning;
+       $d['today_earning']=$today_earning;
+       $d['OnlineModel']=$OnlineModel;
+       $d['Onlinefan']=$Onlinefan;
+       $d['today_feeds']=$today_feeds;
+        return view('index', $d);
     }
      public function myTestAddToLog()
     {
@@ -104,7 +149,7 @@ class HomeController extends Controller
         if (Auth::user()->roles->first()->title == 'admin' || Auth::user()->roles->first()->title == 'Admin') {
            
             return redirect('/dashboard');
-        } 
+        }
         if (Auth::user()->roles->first()->title == 'Fan' || Auth::user()->roles->first()->title == 'Admin') {
           
             return redirect('/fan-dashboard');
@@ -123,15 +168,17 @@ class HomeController extends Controller
             'password' => 'required',
             'readbox'=>'required',
         ]);
-        
+
         $user = User::create([
             'first_name'=>$request->first_name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
            ]);
+
         $user->roles()->sync(4);    
            
         
+
 
         return redirect()->back();
     }

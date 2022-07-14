@@ -295,7 +295,67 @@
                                     @endforeach
                                 @endif
 
-                            </select>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">User Status</label>
+                                <select name="user_status" class="form-control" required>
+                                    <option value="">Select</option>
+                                    <option value="verified" {{isset($model->user_status) && $model->user_status == "verified" ? "selected" : ''}}>Verified</option>
+                                    <option value="unverified" {{isset($model->user_status) && $model->user_status == "unverified" ? "selected" : ''}}>Unverified</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group d-flex mt-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox"  name="featured" id="flexCheckDefault1" value="1" {{ (isset($model) && $model->featured == 1) ? 'checked'  : '' }}>
+                                    <label class="form-check-label" for="flexCheckDefault1">
+                                      <h6>Featured</h6>
+                                    </label>
+                                  </div>
+                                <div class="form-check ml-5">
+                                    <input class="form-check-input" type="checkbox" value="1" {{ (isset($model) && $model->trending == 1) ? 'checked'  : '' }} name="trending" id="flexCheckDefault2">
+                                    <label class="form-check-label" for="flexCheckDefault2">
+                                      <h6>Trending</h6>
+                                    </label>
+                                  </div>
+                                <div class="form-check ml-5">
+                                    <input class="form-check-input" type="checkbox" value="1" {{ (isset($model) && $model->explore == 1) ? 'checked'  : '' }} name="explore"  id="flexCheckDefault3">
+                                    <label class="form-check-label" for="flexCheckDefault3">
+                                      <h6>Explore</h6>
+                                    </label>
+                                  </div>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Discription</label>
+                                <textarea rows="5" class="form-control" name="description">{{isset($model->discription) ? $model->discription : ''}}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <h3 class="heading_detail">Url Info</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Url #1</label>
+                                <input type="text" class="form-control" name="url1" placeholder="Enter Your First Url" value="{{ old('url1', isset($model->url1) ? $model->url1 : '') }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Url #2</label>
+                                <input type="text" class="form-control" name="url2" placeholder="Enter Your Second Url" value="{{ old('url2', isset($model->url2) ? $model->url2 : '') }}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Url #3</label>
+                                <input type="text" class="form-control" name="url3" placeholder="Enter Your Third Url" value="{{ old('url3', isset($model->url3) ? $model->url3 : '') }}" required>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -361,48 +421,48 @@
                         </div>
                     </div>
 
-                </div>
-                <hr>
-                <h3 class="heading_detail">Social Links Info</h3>
-                <div class="row">
-                    @if (isset($model->id))
-                        @php
+                    <hr>
+                    <h3 class="heading_detail">Social Links Info</h3>
+                    <div class="row">
+                        {{--  @php
                             $social_link = json_decode($model->socail_links);
-                        @endphp
-                    @endif
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Twitter</label>
-                            <input type="text" class="form-control" name="link1" placeholder="Enter Twitter Url"
-                                value="{{ isset($social_link->twitter) ? $social_link->twitter : '' }}" required>
+                        @endphp  --}}
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Twitter</label>
+                                <input type="text" class="form-control" name="link1" placeholder="Enter Twitter Url" value="{{isset($social_link->twitter) ? $social_link->twitter : ''}}" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Instagram</label>
-                            <input type="text" class="form-control" name="link2" placeholder="Enter Instagram Url"
-                                value="{{ isset($social_link->instagram) ? $social_link->instagram : '' }}" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Instagram</label>
+                                <input type="text" class="form-control" name="link2" placeholder="Enter Instagram Url" value="{{isset($social_link->instagram) ? $social_link->instagram : ''}}" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Snapchat</label>
-                            <input type="text" class="form-control" name="link3" placeholder="Enter Snapchat Url"
-                                value="{{ isset($social_link->snapchat) ? $social_link->snapchat : '' }}" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Snapchat</label>
+                                <input type="text" class="form-control" name="link3" placeholder="Enter Snapchat Url" value="{{isset($social_link->snapchat) ? $social_link->snapchat : ''}}" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">SpankPay</label>
-                            <input type="text" class="form-control" name="link4" placeholder="Enter SpankPay Url"
-                                value="{{ isset($social_link->spankpay) ? $social_link->spankpay : '' }}" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">SpankPay</label>
+                                <input type="text" class="form-control" name="link4" placeholder="Enter SpankPay Url" value="{{isset($social_link->spankpay) ? $social_link->spankpay : ''}}" required>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label class="form-label">Website</label>
-                            <input type="text" class="form-control" name="link5" placeholder="Enter Website Url"
-                                value="{{ isset($social_link->website) ? $social_link->website : '' }}" required>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">Website</label>
+                                <input type="text" class="form-control" name="link5" placeholder="Enter Website Url" value="{{isset($social_link->website) ? $social_link->website : ''}}" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="form-label">CamSite</label>
+                                <input type="text" class="form-control" name="link6" placeholder="Enter CamSite Url" value="{{isset($social_link->camsite) ? $social_link->camsite : ''}}" required>
+                            </div>
+
                         </div>
                     </div>
                     <div class="col-md-6">
