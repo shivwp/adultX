@@ -144,7 +144,7 @@ class PagesController extends Controller
 
             'Pagemeta_details'=>$request->input('page_details'),
 
-            'page_slider'=>
+            'page_slider'=>'',
 
 
 

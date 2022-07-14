@@ -11,6 +11,7 @@ use Session;
 use App\Models\User;
 use Hash;
 
+
 class HomeController extends Controller
 {
     /**
@@ -20,8 +21,8 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        // main
+        // $this->middleware('auth');
+       
     }
 
     /**
@@ -82,20 +83,13 @@ class HomeController extends Controller
     }
     public function postlogin(Request $request)
     {
-
-        $validator = Validator::make($request->all(), [
+        request()->validate([
             'email' => 'required|email',
-            'password' => 'required'
+            'password' => 'required',
+            'acceptbox'=>'required',
         ]);
-
         $user = User::where('email', '=', $request->email)->first();
-
         if (!Auth::attempt(array('email' => $request->email, 'password' => $request->password))) {
-            // Session::flash('error', "email or password not match!");
-            // return redirect()->back();
-            if ($request->ajax()) {
-                return response()->json(['status' => false, 'msg' => 'User credential not match', 'redirect_to' => ''], 200);
-            }
             return redirect()->back();
         }
 
@@ -103,70 +97,33 @@ class HomeController extends Controller
         Auth::login($user, $remember);
 
         if (Auth::user()->roles->first()->title == 'admin' || Auth::user()->roles->first()->title == 'Admin') {
-            if ($request->ajax()) {
-                return response()->json(['status' => true, 'msg' => 'Admin log in ', 'redirect_to' => 'admin'], 200);
-            }
             return redirect('/dashboard');
         } 
         if (Auth::user()->roles->first()->title == 'Fan' || Auth::user()->roles->first()->title == 'Admin') {
-            if ($request->ajax()) {
-                return response()->json(['status' => true, 'msg' => 'Admin log in ', 'redirect_to' => 'Fan'], 200);
-            }
             return redirect('/fan-dashboard');
         }
         if (Auth::user()->roles->first()->title == 'Model' || Auth::user()->roles->first()->title == 'Admin') {
-            if ($request->ajax()) {
-                return response()->json(['status' => true, 'msg' => 'Admin log in ', 'redirect_to' => 'Model'], 200);
-            }
             return redirect('/model-dashboard');
         }
     }
     public function storeuser(Request $request)
     {
-        //dd($request);
-        $validator = Validator::make($request->all(), [
+
+        request()->validate([
             'email' => 'required|email|unique:users',
+            'first_name' => 'required',
+            'password' => 'required',
+            'readbox'=>'required',
         ]);
         
-        if ($validator->fails()) {
-            return response()->json(['status' => false, 'error' => $validator->errors()], 200);
-        }
         $user = User::create([
             'first_name'=>$request->first_name,
             'email'=>$request->email,
             'password'=>Hash::make($request->password),
            ]);
-        $user->roles()->sync(4);
-
-        if ($request->ajax()) {
-            //  //mail send to user
-            //     $email = $request->email;
-            //     if(!empty($email)){
-                     
-            //         $details = ['email' => $email,'name' =>$request->name];
-            //         Mail::send('mail.register', $details, function($message) use ($details){
-            //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
-            //         });
-            //     }
-
-            //     //mail send to admin
-            //     $email = $request->email;
-            //     $admindata = User::where('id',1)->first();
-            //     $adminemail = $admindata->email;
-            //     $name = $request->name;
-            //     if(!empty($email)){
-            //         $details = ['email' => $adminemail,'name' =>$request->name];
-            //         Mail::send('mail.adminregister', $details,function($message) use ($details){
-            //             $message->to($details['email'])->subject('Zataat Registration')->from(env('MAIL_FROM_ADDRESS'));
-            //         });
-            //     }
+        $user->roles()->sync(4);    
            
-
-           
-
-            
-           
-        }
+        
 
         return redirect()->back();
     }
