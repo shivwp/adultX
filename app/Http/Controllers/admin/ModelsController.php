@@ -99,8 +99,12 @@ class ModelsController extends Controller
             ]);
         }
         $user->update();
-
-        $user_id = User::orderBy('created_at','desc')->first();
+        if(isset($request->id)){
+            $user_id=$request->user_id;
+        }else{
+            $user_id =  $user->id;
+        }
+        
 
         $social_links = [];
         $social_links = [
@@ -117,13 +121,11 @@ class ModelsController extends Controller
         }else{
              $featured=0;
         }
-
         if($request->input('trending')==1){
             $trending=1;
         }else{
              $trending=0;
         }
-
         if($request->input('explore')==1){
             $explore=1;
         }else{
@@ -131,7 +133,7 @@ class ModelsController extends Controller
         }
         $models = Models::updateOrCreate(['id'=>$request->id],[
 
-            'user_id'           => $user_id->id,
+            'user_id'           => $user_id,
             'phone'             => $request->phone,
             'video'             => $request->video,
             'stage_name'        => $request->stage_name,

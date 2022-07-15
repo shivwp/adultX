@@ -261,85 +261,29 @@
                 <div class="row">
                     <div class="col-sm-3">
                         <div id="sync1" class="owl-carousel owl-theme">
-                            <div class="item">
-                                <div class="team-member">
-                                    <div class="team-img teamimg-wrapp">
-                                        <img src="./image/Featured1.png" alt="team member" class="img-responsive" />
-                                        <span class="img-number">1</span>
+
+                            @php
+                                $i = 1;
+                            @endphp
+                            @foreach ($featured as $item)
+                                <div class="item">
+                                    <div class="team-member">
+                                        <div class="team-img teamimg-wrapp">
+                                            <img src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                                alt="team member" class="img-responsive">
+
+                                            <span class="img-number">{{ $i++ }}</span>
+                                        </div>
+                                    </div>
+                                    <div class="team-title">
+                                        <h5>{{ $item->first_name }}</h5>
+                                        <p>
+                                            {{ $item->discription }}
+                                        </p>
                                     </div>
                                 </div>
-                                <div class="team-title">
-                                    <h5>Naomi Nova</h5>
-                                    <p>
-                                        I’m Jenna, the single tattooedPAWG who’s always down to be
-                                        the nastiest littlecumslut,I reply INSTANT;
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team-member">
-                                    <div class="team-img teamimg-wrapp">
-                                        <img src="https://image.freepik.com/free-photo/confident-businesswoman-holding-pen_1098-2049.jpg"
-                                            alt="team member" class="img-responsive" />
-                                        <span class="img-number">1</span>
-                                    </div>
-                                </div>
-                                <div class="team-title">
-                                    <h5>Naomi Nova</h5>
-                                    <p>
-                                        I’m Jenna, the single tattooedPAWG who’s always down to be
-                                        the nastiest littlecumslut,I reply INSTANT;
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team-member">
-                                    <div class="team-img teamimg-wrapp">
-                                        <img src="https://image.freepik.com/free-photo/confident-businesswoman-holding-pen_1098-2049.jpg"
-                                            alt="team member" class="img-responsive" />
-                                        <span class="img-number">1</span>
-                                    </div>
-                                </div>
-                                <div class="team-title">
-                                    <h5>Naomi Nova</h5>
-                                    <p>
-                                        I’m Jenna, the single tattooedPAWG who’s always down to be
-                                        the nastiest littlecumslut,I reply INSTANT;
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team-member">
-                                    <div class="team-img teamimg-wrapp">
-                                        <img src="https://image.freepik.com/free-photo/confident-businesswoman-holding-pen_1098-2049.jpg"
-                                            alt="team member" class="img-responsive" />
-                                        <span class="img-number">1</span>
-                                    </div>
-                                </div>
-                                <div class="team-title">
-                                    <h5>Naomi Nova</h5>
-                                    <p>
-                                        I’m Jenna, the single tattooedPAWG who’s always down to be
-                                        the nastiest littlecumslut,I reply INSTANT;
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="item">
-                                <div class="team-member">
-                                    <div class="team-img teamimg-wrapp">
-                                        <img src="https://image.freepik.com/free-photo/businesswoman-yawning-in-the-office_1098-2218.jpg"
-                                            alt="team member" class="img-responsive" />
-                                        <span class="img-number">1</span>
-                                    </div>
-                                </div>
-                                <div class="team-title">
-                                    <h5>Naomi Nova</h5>
-                                    <p>
-                                        I’m Jenna, the single tattooedPAWG who’s always down to be
-                                        the nastiest littlecumslut,I reply INSTANT;
-                                    </p>
-                                </div>
-                            </div>
+                            @endforeach
+
                         </div>
                     </div>
                     <div class="col-sm-9">
@@ -350,33 +294,18 @@
                                 </h5>
                             </div>
                             <div id="sync2" class="owl-carousel owl-theme">
-                                <div class="item slideimg-wrapp">
-                                    <img src="./image/featued2.png" alt="team member" class="img-responsive" />
-                                    <span class="smallimg-number">2</span>
-                                    <h4 class="imgmodel-name">Naomi Nova</h4>
-                                </div>
-                                <div class="item slideimg-wrapp">
-                                    <img src="./image/43.png" alt="team member" class="img-responsive" />
-                                    <span class="smallimg-number">3</span>
-                                    <h4 class="imgmodel-name">Naomi Nova</h4>
-                                </div>
-                                <div class="item slideimg-wrapp">
-                                    <img src="./image/40.png" alt="team member" class="img-responsive" />
-                                    <span class="smallimg-number">4</span>
-                                    <h4 class="imgmodel-name">Naomi Nova</h4>
-                                </div>
-                                <div class="item slideimg-wrapp">
-                                    <img src="https://image.freepik.com/free-photo/smiling-secretary-with-glasses-and-white-shirt_1098-3301.jpg"
-                                        alt="team member" class="img-responsive" />
-                                    <span class="smallimg-number">5</span>
-                                    <h4 class="imgmodel-name">Naomi Nova</h4>
-                                </div>
-                                <div class="item slideimg-wrapp">
-                                    <img src="https://image.freepik.com/free-photo/businesswoman-yawning-in-the-office_1098-2218.jpg"
-                                        alt="team member" class="img-responsive" />
-                                    <span class="smallimg-number">6</span>
-                                    <h4 class="imgmodel-name">Naomi Nova</h4>
-                                </div>
+                                @php
+                                    $i = 1;
+                                @endphp
+                                @foreach ($featured as $item)
+                                    <div class="item slideimg-wrapp">
+                                        <img src="{{ url('profile-image') . '/' . $item->profile_image }}"
+                                            alt="#" class="img-responsive" />
+                                        <span class="smallimg-number">{{ $i++ }}</span>
+                                        <h4 class="imgmodel-name">{{ $item->first_name }}</h4>
+                                    </div>
+                                @endforeach
+
                             </div>
                         </div>
                     </div>
